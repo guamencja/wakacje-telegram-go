@@ -60,7 +60,7 @@ func main() {
 
 		text := fmt.Sprintf("%d dni, %d godz, %d min i %d sek do %s", d.Days, d.Hours, d.Minutes, d.Seconds, str)
 		if err := bot.EditMessageText(config.ChatId, config.MessageId, text); err != nil {
-			log.Fatalln(err)
+			log.Println(err)
 		}
 	}
 }
