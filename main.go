@@ -73,6 +73,23 @@ func saveTempFile(t temp) error {
 	return os.WriteFile(tempFile, data, 0644)
 }
 
+func findNearestHoliday(holidays []Holiday) Holiday {
+	var nearest Holiday
+	var nearestDiff time.Duration = 1<<63 - 1 // max duration
+
+	now := time.Now()
+	for _, h := range holidays {
+		eventTime := h.GetCountdownDate()
+		diff := eventTime.Sub(now)
+
+		if diff > 0 && diff < nearestDiff {
+			nearest = h
+			nearestDiff = diff
+		}
+	}
+	return nearest
+}
+
 func main() {
 	config := getConfig()
 
@@ -108,21 +125,31 @@ func main() {
 		}
 	}
 
-	// COUNTDOWN
-	summer := getSummer()
-	for range time.Tick(time.Second * time.Duration(config.Cooldown)) {
-		d := getTimeRemaining(summer)
+	var holidays []Holiday
+	loadHolidays(&holidays)
 
-		if d.Total <= 0 { // bot odlicza na minusie, zresetuj wartości eventu (prawdopodobnie błąd związany z zmianą roku)
+	// COUNTDOWN
+	/*summer := getSummer()*/
+	for range time.Tick(time.Second * time.Duration(config.Cooldown)) {
+		nearest := findNearestHoliday(holidays)
+		d := GetTimeRemaining( /*summer*/ nearest)
+
+		/*if d.Total <= 0 { // bot odlicza na minusie, zresetuj wartości eventu (prawdopodobnie błąd związany z zmianą roku)
 			summer = getSummer()
 		}
 
 		str := "wakacji! ☀️🍹"
 		if summer.IsItAlready() {
 			str = "jesieni! 🌆"
-		}
+		}*/
+
+		str := nearest.GetName()
+		/*if nearest.IsItAlready() {
+			str = fmt.Sprintf("końca %s", str)
+		}*/
 
 		text := fmt.Sprintf("%d dni, %d godz, %d min i %d sek do %s", d.Days, d.Hours, d.Minutes, d.Seconds, str)
+
 		if err := bot.EditMessageText(config.ChatId, t.MessageId, text); err != nil {
 			log.Println(err)
 		}

@@ -3,5 +3,6 @@ package main
 import "time"
 
 type Event interface {
-	getCountdownDate() time.Time
+	GetCountdownDate() time.Time
+	GetName() string
 }

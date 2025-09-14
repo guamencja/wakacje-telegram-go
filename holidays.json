@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Święto Niepodległości",
+        "date": "11/11/2025"
+    },
+    {
+        "name": "Boże Narodzenie",
+        "date": "22/12/2025",
+        "end_date": "26/12/2025",
+        "message": "Wesołych świąt!"
+    },
+    {
+        "name": "Nowy Rok",
+        "date": "1/1/2026",
+        "message": "Wesołego Nowego Roku!"
+    },
+    {
+        "name": "Ferie",
+        "date": "2/2/2026",
+        "end_date": "15/2/2026"
+    },
+    {
+        "name": "Wielkanoc",
+        "date": "2/4/2026"
+    },
+    {
+        "name": "Wakacje",
+        "date": "26/6/2026",
+        "end_date": "1/9/2026"
+    }
+]

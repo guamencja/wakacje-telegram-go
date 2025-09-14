@@ -50,10 +50,14 @@ func (s Summer) IsItAlready() bool {
 	return !now.Before(s.start)
 }
 
-func (s Summer) getCountdownDate() time.Time {
+func (s Summer) GetCountdownDate() time.Time {
 	if s.IsItAlready() {
 		return s.end
 	}
 
 	return s.start
+}
+
+func (s Summer) GetName() string {
+	return "Wakacje"
 }
