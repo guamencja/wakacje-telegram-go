@@ -11,9 +11,9 @@ type timeRemaining struct {
 	Seconds int
 }
 
-func getTimeRemaining(e Event) timeRemaining {
+func GetTimeRemaining(e Event) timeRemaining {
 	now := time.Now()
-	event := e.getCountdownDate()
+	event := e.GetCountdownDate()
 
 	difference := event.Sub(now)
 
